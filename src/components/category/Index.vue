@@ -1,5 +1,5 @@
 <template>
-    <p>Create category</p>
+    <router-link :to="{ name: 'category.create' }">Create category</router-link>
     <p v-if="errors" class="errors">{{ errors }}</p>
     <table cellspacing="0" cellpadding="0">
         <tr>

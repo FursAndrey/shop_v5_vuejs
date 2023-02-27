@@ -1,13 +1,19 @@
 import { createRouter, createWebHistory } from 'vue-router'
 import CategoryIndex from '../components/category/Index.vue'
+import CategoryCreate from '../components/category/Create.vue'
 
 const router = createRouter({
     history: createWebHistory(import.meta.env.BASE_URL),
     routes: [
         {
             path: '/',
-            name: 'home',
+            name: 'category.index',
             component: CategoryIndex
+        },
+        {
+            path: '/category/create',
+            name: 'category.create',
+            component: CategoryCreate
         },
         {
             path: '/about',

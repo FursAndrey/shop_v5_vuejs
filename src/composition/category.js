@@ -14,6 +14,19 @@ export default function useCategory() {
         categories.value = response.data.data;
         linkPages.value = response.data.meta.links;
     }
+
+    const storeCategory = async (data) => {
+        errors.value = '';
+        try {
+            await axios.post('http://shopv5/api/categories', data);
+            await router.push({ name: 'category.index' });
+        } catch(e) {
+            //построчный вывод ошибок
+            if (e.response.status === 422) {
+                errors.value = e.response.data.errors
+            }
+        }
+    }
     
     const destroyCategory = async (id) => {
         try {
@@ -39,6 +52,7 @@ export default function useCategory() {
         category,
         errors,
         getCategories,
+        storeCategory,
         destroyCategory,
         clearErrors
     }
