@@ -1,5 +1,6 @@
 <template>
     <p>Create category</p>
+    <p v-if="errors" class="errors">{{ errors }}</p>
     <table cellspacing="0" cellpadding="0">
         <tr>
             <th>ID</th>
@@ -15,7 +16,10 @@
                     {{ product.name }}
                 </p>
             </td>
-            <td>update/delete</td>
+            <td>
+                update/
+                <button @click="deleteCategory(category.id)">Delete</button>
+            </td>
         </tr>
     </table>
     <ul class="pagination">
@@ -60,6 +64,15 @@ th, td {
 .currentPage {
     font-weight: bold;
 }
+
+.errors {
+    color: #c50000;
+    padding: 5px;
+    background: #ffb1b1;
+    border: 2px solid red;
+    border-radius: 10px;
+    margin: 5px 0;
+}
 </style>
 
 <script>
@@ -68,19 +81,37 @@ import useCategory from "../../composition/category";
 
 export default {
     setup() {
-        const { categories, linkPages, getCategories } = useCategory();
+        const { 
+            categories, 
+            linkPages,
+            errors,
+            getCategories, 
+            destroyCategory,
+            clearErrors
+        } = useCategory();
         onMounted(getCategories);
 
         const goToPage = (url) => {
             if (url != null) {
                 getCategories(url);
             }
+            clearErrors();
+        }
+        
+        const deleteCategory = async (id) => {
+            if (!window.confirm('Are you sure?')) {
+                return false;
+            }
+            await destroyCategory(id);
+            await getCategories();
         }
 
         return {
             categories,
             linkPages,
-            goToPage
+            errors,
+            goToPage,
+            deleteCategory
         }
     }
 }
