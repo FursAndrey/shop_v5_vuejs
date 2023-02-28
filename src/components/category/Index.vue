@@ -10,7 +10,11 @@
         </tr>
         <tr v-for="category in categories" :key="category.id">
             <td>{{ category.id }}</td>
-            <td>{{ category.name }}</td>
+            <td>
+                <router-link :to="{ name:'category.show', params:{id: category.id} }">
+                    {{ category.name }}
+                </router-link>
+            </td>
             <td>
                 <p v-for="product in category.products" :key="product.id">
                     {{ product.name }}

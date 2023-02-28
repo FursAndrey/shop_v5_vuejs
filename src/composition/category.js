@@ -14,6 +14,11 @@ export default function useCategory() {
         categories.value = response.data.data;
         linkPages.value = response.data.meta.links;
     }
+    
+    const getCategory = async (id) => {
+        let response = await axios.get('http://shopv5/api/categories/' + id);
+        category.value = response.data;
+    }
 
     const storeCategory = async (data) => {
         errors.value = '';
@@ -52,6 +57,7 @@ export default function useCategory() {
         category,
         errors,
         getCategories,
+        getCategory,
         storeCategory,
         destroyCategory,
         clearErrors
