@@ -4,6 +4,11 @@ import CategoryCreate from '../components/category/Create.vue'
 import CategoryShow from '../components/category/Show.vue'
 import CategoryEdit from '../components/category/Edit.vue'
 
+import CurrencyIndex from '../components/currency/Index.vue'
+import CurrencyCreate from '../components/currency/Create.vue'
+import CurrencyShow from '../components/currency/Show.vue'
+import CurrencyEdit from '../components/currency/Edit.vue'
+
 const router = createRouter({
     history: createWebHistory(import.meta.env.BASE_URL),
     routes: [
@@ -27,6 +32,28 @@ const router = createRouter({
             path: '/category/edit/:id',
             name: 'category.edit',
             component: CategoryEdit,
+            props: true
+        },
+        {
+            path: '/currency',
+            name: 'currency.index',
+            component: CurrencyIndex
+        },
+        {
+            path: '/currency/create',
+            name: 'currency.create',
+            component: CurrencyCreate
+        },
+        {
+            path: '/currency/show/:id',
+            name: 'currency.show',
+            component: CurrencyShow,
+            props: true
+        },
+        {
+            path: '/currency/edit/:id',
+            name: 'currency.edit',
+            component: CurrencyEdit,
             props: true
         },
         {
