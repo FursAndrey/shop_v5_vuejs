@@ -21,7 +21,10 @@
                 </p>
             </td>
             <td>
-                update/
+                <router-link :to="{ name:'category.edit', params:{id: category.id} }">
+                    update
+                </router-link>
+                /
                 <button @click="deleteCategory(category.id)">Delete</button>
             </td>
         </tr>
