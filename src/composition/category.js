@@ -5,7 +5,8 @@ import getConfig from './config.js'
 
 export default function useCategory() {
     const {
-        API_URL
+        API_URL,
+        CATEGORY_URL
     } = getConfig();
 
     const categories = ref([]);
@@ -14,21 +15,21 @@ export default function useCategory() {
     const router = useRouter();
     const errors = ref('');
 
-    const getCategories = async (url = API_URL) => {
+    const getCategories = async (url = API_URL + CATEGORY_URL) => {
         let response = await axios.get(url);
         categories.value = response.data.data;
         linkPages.value = response.data.meta.links;
     }
     
     const getCategory = async (id) => {
-        let response = await axios.get(API_URL + '/' + id);
+        let response = await axios.get(API_URL + CATEGORY_URL + '/' + id);
         category.value = response.data;
     }
 
     const storeCategory = async (data) => {
         errors.value = '';
         try {
-            await axios.post(API_URL, data);
+            await axios.post(API_URL + CATEGORY_URL, data);
             await router.push({ name: 'category.index' });
         } catch(e) {
             //построчный вывод ошибок
@@ -42,7 +43,7 @@ export default function useCategory() {
         errors.value = '';
         
         try {
-            await axios.put(API_URL + '/' + id, category.value);
+            await axios.put(API_URL + CATEGORY_URL + '/' + id, category.value);
             await router.push({ name: 'category.index' });
         } catch(e) {
             //построчный вывод ошибок
@@ -55,7 +56,7 @@ export default function useCategory() {
     const destroyCategory = async (id) => {
         try {
             clearErrors();
-            await axios.delete(API_URL + '/' + id);
+            await axios.delete(API_URL + CATEGORY_URL + '/' + id);
         } catch(e) {
             //вывод ошибок
             if (e.response.status === 409) {
