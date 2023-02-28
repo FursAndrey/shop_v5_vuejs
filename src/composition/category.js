@@ -1,10 +1,13 @@
 import { ref } from "vue";
 import axios from 'axios';
 import { useRouter } from "vue-router";
+import getConfig from './config.js'
 
 export default function useCategory() {
-    const API_URL = 'http://shopv5/api/categories';
-    
+    const {
+        API_URL
+    } = getConfig();
+
     const categories = ref([]);
     const linkPages = ref([]);
     const category = ref([]);
