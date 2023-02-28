@@ -1,18 +1,73 @@
 import { ref } from "vue";
 import axios from 'axios';
 import { useRouter } from "vue-router";
+import getConfig from './config.js'
 
 export default function useCategory() {
+    const {
+        API_URL
+    } = getConfig();
+
     const categories = ref([]);
     const linkPages = ref([]);
     const category = ref([]);
     const router = useRouter();
     const errors = ref('');
 
-    const getCategories = async (url = 'http://shopv5/api/categories') => {
+    const getCategories = async (url = API_URL) => {
         let response = await axios.get(url);
         categories.value = response.data.data;
         linkPages.value = response.data.meta.links;
+    }
+    
+    const getCategory = async (id) => {
+        let response = await axios.get(API_URL + '/' + id);
+        category.value = response.data;
+    }
+
+    const storeCategory = async (data) => {
+        errors.value = '';
+        try {
+            await axios.post(API_URL, data);
+            await router.push({ name: 'category.index' });
+        } catch(e) {
+            //построчный вывод ошибок
+            if (e.response.status === 422) {
+                errors.value = e.response.data.errors
+            }
+        }
+    }
+
+    const updateCategory = async (id) => {
+        errors.value = '';
+        
+        try {
+            await axios.put(API_URL + '/' + id, category.value);
+            await router.push({ name: 'category.index' });
+        } catch(e) {
+            //построчный вывод ошибок
+            if (e.response.status === 422) {
+                errors.value = e.response.data.errors
+            }
+        }
+    }
+    
+    const destroyCategory = async (id) => {
+        try {
+            clearErrors();
+            await axios.delete(API_URL + '/' + id);
+        } catch(e) {
+            //вывод ошибок
+            if (e.response.status === 409) {
+                errors.value = e.response.data
+            }
+        }
+    }
+
+    const clearErrors = () => {        
+        if (errors != null) {
+            errors.value = null;
+        }
     }
 
     return {
@@ -20,34 +75,11 @@ export default function useCategory() {
         linkPages,
         category,
         errors,
-        getCategories
+        getCategories,
+        getCategory,
+        storeCategory,
+        updateCategory,
+        destroyCategory,
+        clearErrors
     }
 }
-// {"data":[
-//     {"id":3,"name":"test 1qqq","products":[{"id":1,"name":"prod1","description":"long text"},{"id":4,"name":"prod4","description":"long text"}]},
-//     {"id":4,"name":"test 2","products":[{"id":3,"name":"prod3","description":"long text"}]},
-//     {"id":7,"name":"test 5","products":[{"id":5,"name":"qwertewrtertertert","description":"qwertewrtertertert"}]},
-//     {"id":14,"name":"wwwwwwwwwwwwwwww","products":[{"id":6,"name":"admin","description":"werwerwer"}]},
-//     {"id":16,"name":"ghjghj","products":[]}
-// ],
-// "links":{
-//     "first":"http:\/\/shopv5\/api\/categories?page=1",
-//     "last":"http:\/\/shopv5\/api\/categories?page=2",
-//     "prev":null,
-//     "next":"http:\/\/shopv5\/api\/categories?page=2"
-// },
-// "meta":{
-//     "current_page":1,
-//     "from":1,
-//     "last_page":2,
-//     "links":[
-//         {"url":null,"label":"&laquo; Previous","active":false},
-//         {"url":"http:\/\/shopv5\/api\/categories?page=1","label":"1","active":true},
-//         {"url":"http:\/\/shopv5\/api\/categories?page=2","label":"2","active":false},
-//         {"url":"http:\/\/shopv5\/api\/categories?page=2","label":"Next &raquo;","active":false}
-//     ],
-//     "path":"http:\/\/shopv5\/api\/categories",
-//     "per_page":5,
-//     "to":5,
-//     "total":10
-// }}
