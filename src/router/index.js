@@ -9,11 +9,43 @@ import CurrencyCreate from '../components/currency/Create.vue'
 import CurrencyShow from '../components/currency/Show.vue'
 import CurrencyEdit from '../components/currency/Edit.vue'
 
+import PropertyIndex from '../components/property/Index.vue'
+import PropertyCreate from '../components/property/Create.vue'
+import PropertyShow from '../components/property/Show.vue'
+import PropertyEdit from '../components/property/Edit.vue'
+
 const router = createRouter({
     history: createWebHistory(import.meta.env.BASE_URL),
     routes: [
         {
             path: '/',
+            name: 'home',
+            component: () => import('../views/AboutView.vue')
+        },
+        {
+            path: '/property',
+            name: 'property.index',
+            component: PropertyIndex
+        },
+        {
+            path: '/property/create',
+            name: 'property.create',
+            component: PropertyCreate
+        },
+        {
+            path: '/property/show/:id',
+            name: 'property.show',
+            component: PropertyShow,
+            props: true
+        },
+        {
+            path: '/property/edit/:id',
+            name: 'property.edit',
+            component: PropertyEdit,
+            props: true
+        },
+        {
+            path: '/category',
             name: 'category.index',
             component: CategoryIndex
         },
