@@ -3,16 +3,28 @@
     <p v-if="errors" class="errors">{{ errors }}</p>
     <table cellspacing="0" cellpadding="0">
         <tr>
-            <th>ID</th>
+            <th class="IDcol">ID</th>
             <th>Name</th>
+            <th>Products</th>
+            <th>Options</th>
             <th></th>
         </tr>
         <tr v-for="property in properties" :key="property.id">
-            <td>{{ property.id }}</td>
+            <td class="IDcol">{{ property.id }}</td>
             <td>
                 <router-link :to="{ name:'property.show', params:{id: property.id} }">
                     {{ property.name }}
                 </router-link>
+            </td>
+            <td>
+                <p v-for="product in property.products" :key="product.id">
+                    {{ product.name }}
+                </p>
+            </td>
+            <td>
+                <p v-for="option in property.options" :key="option.id">
+                    {{ option.name }}
+                </p>
             </td>
             <td>
                 <router-link :to="{ name:'property.edit', params:{id: property.id} }">
@@ -51,7 +63,11 @@ th {
 th, td {
     border: 1px solid silver;
     padding: 10px;
-    width: 30%;
+    width: 20%;
+}
+
+.IDcol {
+    width: 5%;
 }
 
 .pagination {
