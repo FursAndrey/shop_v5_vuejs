@@ -6,18 +6,28 @@
             </span>
         </p>
     </div>
-    <form @submit.prevent="saveOption">
-        <h4>Редактирование option {{ $route.params.id }}</h4>
+    <form @submit.prevent="saveProduct">
+        <h4>Редактирование product {{ $route.params.id }}</h4>
         <p>
             <input
-                v-model="option.name"
+                v-model="product.name"
                 type="text"
                 placeholder="Название"
             />
         </p>
-        <p>Property</p>
+        <p>Description</p>
         <p>
-            <select v-model="option.property_id">
+            <textarea v-model="product.description" rows="4" cols="100"></textarea>
+        </p>
+        <p>Category</p>
+        <p>
+            <select v-model="product.category_id">
+                <option v-for="category in allCategories" :key="category.id" :value="category.id">{{ category.name }}</option>
+            </select>
+        </p>
+        <p>Properties</p>
+        <p>
+            <select v-model="product.property_id" multiple size="7">
                 <option v-for="property in allProperties" :key="property.id" :value="property.id">{{ property.name }}</option>
             </select>
         </p>
@@ -25,7 +35,7 @@
             <button style="margin-top: 15px">
                 Сохранить
             </button>
-            <router-link :to="{ name: 'option.index' }">
+            <router-link :to="{ name: 'product.index' }">
                 Закрыть
             </router-link>
         </p>
@@ -34,7 +44,7 @@
 
 <script>
 import { onMounted } from 'vue';
-import useOption from "../../composition/option";
+import useProduct from "../../composition/product";
 
 export default {
     props: {
@@ -47,30 +57,34 @@ export default {
     setup(props) {
         const {
             errors,
-            option,
+            product,
             allProperties,
-            getOption,
-            updateOption,
-            getAllProperties
-        } = useOption();
+            allCategories,
+            getProduct,
+            updateProduct,
+            getAllProperties,
+            getAllCategories
+        } = useProduct();
 
-        const getCurrentOption = () => {
-            getOption(props.id);
+        const getCurrentProduct = () => {
+            getProduct(props.id);
         }
         
 
-        const saveOption = async () => {
-            await updateOption(props.id);
+        const saveProduct = async () => {
+            await updateProduct(props.id);
         }
 
-        onMounted(getCurrentOption);
+        onMounted(getCurrentProduct);
         onMounted(getAllProperties);
+        onMounted(getAllCategories);
 
         return {
             errors,
-            option,
+            product,
             allProperties,
-            saveOption
+            allCategories,
+            saveProduct
         }
     }
 }

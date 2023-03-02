@@ -19,6 +19,11 @@ import OptionCreate from '../components/option/Create.vue'
 import OptionShow from '../components/option/Show.vue'
 import OptionEdit from '../components/option/Edit.vue'
 
+import ProductIndex from '../components/product/Index.vue'
+import ProductCreate from '../components/product/Create.vue'
+import ProductShow from '../components/product/Show.vue'
+import ProductEdit from '../components/product/Edit.vue'
+
 const router = createRouter({
     history: createWebHistory(import.meta.env.BASE_URL),
     routes: [
@@ -26,6 +31,28 @@ const router = createRouter({
             path: '/',
             name: 'home',
             component: () => import('../views/AboutView.vue')
+        },
+        {
+            path: '/product',
+            name: 'product.index',
+            component: ProductIndex
+        },
+        {
+            path: '/product/create',
+            name: 'product.create',
+            component: ProductCreate
+        },
+        {
+            path: '/product/show/:id',
+            name: 'product.show',
+            component: ProductShow,
+            props: true
+        },
+        {
+            path: '/product/edit/:id',
+            name: 'product.edit',
+            component: ProductEdit,
+            props: true
         },
         {
             path: '/property',

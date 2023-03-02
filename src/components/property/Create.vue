@@ -1,5 +1,5 @@
 <template>
-    <div v-if="errors !== ''">
+    <div class="errors" v-if="errors !== ''">
         <p v-for="(er, field) in errors" :key="field">
             <span v-for="error in er" :key="error" class="text-sm">
                 {{ error }}
@@ -49,3 +49,14 @@ export default {
     }
 }
 </script>
+
+<style scoped>
+.errors {
+    color: #c50000;
+    padding: 5px;
+    background: #ffb1b1;
+    border: 2px solid red;
+    border-radius: 10px;
+    margin: 5px 0;
+}
+</style>
