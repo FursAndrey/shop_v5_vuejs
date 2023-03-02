@@ -14,6 +14,11 @@ import PropertyCreate from '../components/property/Create.vue'
 import PropertyShow from '../components/property/Show.vue'
 import PropertyEdit from '../components/property/Edit.vue'
 
+import OptionIndex from '../components/option/Index.vue'
+import OptionCreate from '../components/option/Create.vue'
+import OptionShow from '../components/option/Show.vue'
+import OptionEdit from '../components/option/Edit.vue'
+
 const router = createRouter({
     history: createWebHistory(import.meta.env.BASE_URL),
     routes: [
@@ -42,6 +47,28 @@ const router = createRouter({
             path: '/property/edit/:id',
             name: 'property.edit',
             component: PropertyEdit,
+            props: true
+        },
+        {
+            path: '/option',
+            name: 'option.index',
+            component: OptionIndex
+        },
+        {
+            path: '/option/create',
+            name: 'option.create',
+            component: OptionCreate
+        },
+        {
+            path: '/option/show/:id',
+            name: 'option.show',
+            component: OptionShow,
+            props: true
+        },
+        {
+            path: '/option/edit/:id',
+            name: 'option.edit',
+            component: OptionEdit,
             props: true
         },
         {
