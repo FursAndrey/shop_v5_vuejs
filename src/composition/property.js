@@ -3,34 +3,34 @@ import axios from 'axios';
 import { useRouter } from "vue-router";
 import getConfig from './config.js'
 
-export default function useCategory() {
+export default function useProperty() {
     const {
         API_URL,
-        CATEGORY_URL
+        PROPERTY_URL
     } = getConfig();
-
-    const categories = ref([]);
+    
+    const properties = ref([]);
     const linkPages = ref([]);
-    const category = ref([]);
+    const property = ref([]);
     const router = useRouter();
     const errors = ref('');
-
-    const getCategories = async (url = API_URL + CATEGORY_URL) => {
+    
+    const getProperties = async (url = API_URL + PROPERTY_URL) => {
         let response = await axios.get(url);
-        categories.value = response.data.data;
+        properties.value = response.data.data;
         linkPages.value = response.data.meta.links;
     }
     
-    const getCategory = async (id) => {
-        let response = await axios.get(API_URL + CATEGORY_URL + '/' + id);
-        category.value = response.data;
+    const getProperty = async (id) => {
+        let response = await axios.get(API_URL + PROPERTY_URL + '/' + id);
+        property.value = response.data;
     }
 
-    const storeCategory = async (data) => {
+    const storeProperty = async (data) => {
         errors.value = '';
         try {
-            await axios.post(API_URL + CATEGORY_URL, data);
-            await router.push({ name: 'category.index' });
+            await axios.post(API_URL + PROPERTY_URL, data);
+            await router.push({ name: 'property.index' });
         } catch(e) {
             //построчный вывод ошибок
             if (e.response.status === 422) {
@@ -39,12 +39,12 @@ export default function useCategory() {
         }
     }
 
-    const updateCategory = async (id) => {
+    const updateProperty = async (id) => {
         errors.value = '';
         
         try {
-            await axios.put(API_URL + CATEGORY_URL + '/' + id, category.value);
-            await router.push({ name: 'category.index' });
+            await axios.put(API_URL + PROPERTY_URL + '/' + id, property.value);
+            await router.push({ name: 'property.index' });
         } catch(e) {
             //построчный вывод ошибок
             if (e.response.status === 422) {
@@ -53,10 +53,10 @@ export default function useCategory() {
         }
     }
     
-    const destroyCategory = async (id) => {
+    const destroyProperty = async (id) => {
         try {
             clearErrors();
-            await axios.delete(API_URL + CATEGORY_URL + '/' + id);
+            await axios.delete(API_URL + PROPERTY_URL + '/' + id);
         } catch(e) {
             //вывод ошибок
             if (e.response.status === 409) {
@@ -72,15 +72,15 @@ export default function useCategory() {
     }
 
     return {
-        categories,
+        properties,
         linkPages,
-        category,
         errors,
-        getCategories,
-        getCategory,
-        storeCategory,
-        updateCategory,
-        destroyCategory,
+        property,
+        getProperties,
+        getProperty,
+        storeProperty,
+        updateProperty,
+        destroyProperty,
         clearErrors
     }
 }

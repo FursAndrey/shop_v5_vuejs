@@ -3,34 +3,34 @@ import axios from 'axios';
 import { useRouter } from "vue-router";
 import getConfig from './config.js'
 
-export default function useCategory() {
+export default function useCurrency() {
     const {
         API_URL,
-        CATEGORY_URL
+        CURRENCY_URL
     } = getConfig();
 
-    const categories = ref([]);
+    const currencies = ref([]);
     const linkPages = ref([]);
-    const category = ref([]);
+    const currency = ref([]);
     const router = useRouter();
     const errors = ref('');
 
-    const getCategories = async (url = API_URL + CATEGORY_URL) => {
+    const getCurrencies = async (url = API_URL + CURRENCY_URL) => {
         let response = await axios.get(url);
-        categories.value = response.data.data;
+        currencies.value = response.data.data;
         linkPages.value = response.data.meta.links;
     }
     
-    const getCategory = async (id) => {
-        let response = await axios.get(API_URL + CATEGORY_URL + '/' + id);
-        category.value = response.data;
+    const getCurrency = async (id) => {
+        let response = await axios.get(API_URL + CURRENCY_URL + '/' + id);
+        currency.value = response.data;
     }
 
-    const storeCategory = async (data) => {
+    const storeCurrency = async (data) => {
         errors.value = '';
         try {
-            await axios.post(API_URL + CATEGORY_URL, data);
-            await router.push({ name: 'category.index' });
+            await axios.post(API_URL + CURRENCY_URL, data);
+            await router.push({ name: 'currency.index' });
         } catch(e) {
             //построчный вывод ошибок
             if (e.response.status === 422) {
@@ -39,12 +39,12 @@ export default function useCategory() {
         }
     }
 
-    const updateCategory = async (id) => {
+    const updateCurrency = async (id) => {
         errors.value = '';
         
         try {
-            await axios.put(API_URL + CATEGORY_URL + '/' + id, category.value);
-            await router.push({ name: 'category.index' });
+            await axios.put(API_URL + CURRENCY_URL + '/' + id, currency.value);
+            await router.push({ name: 'currency.index' });
         } catch(e) {
             //построчный вывод ошибок
             if (e.response.status === 422) {
@@ -53,10 +53,10 @@ export default function useCategory() {
         }
     }
     
-    const destroyCategory = async (id) => {
+    const destroyCurrency = async (id) => {
         try {
             clearErrors();
-            await axios.delete(API_URL + CATEGORY_URL + '/' + id);
+            await axios.delete(API_URL + CURRENCY_URL + '/' + id);
         } catch(e) {
             //вывод ошибок
             if (e.response.status === 409) {
@@ -72,15 +72,15 @@ export default function useCategory() {
     }
 
     return {
-        categories,
+        currencies,
         linkPages,
-        category,
+        currency,
         errors,
-        getCategories,
-        getCategory,
-        storeCategory,
-        updateCategory,
-        destroyCategory,
+        getCurrencies,
+        getCurrency,
+        storeCurrency,
+        updateCurrency,
+        destroyCurrency,
         clearErrors
     }
 }

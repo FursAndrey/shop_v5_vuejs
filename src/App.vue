@@ -7,7 +7,10 @@ import { RouterLink, RouterView } from 'vue-router'
     <header>
         <div class="wrapper">
         <nav>
-            <RouterLink to="/">Category</RouterLink>
+            <RouterLink to="/category">Category</RouterLink>
+            <RouterLink to="/currency">Currency</RouterLink>
+            <RouterLink to="/property">Property</RouterLink>
+            <RouterLink to="/option">Option</RouterLink>
             <RouterLink to="/about">About</RouterLink>
         </nav>
         </div>
