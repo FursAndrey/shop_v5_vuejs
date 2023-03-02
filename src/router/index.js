@@ -24,6 +24,11 @@ import ProductCreate from '../components/product/Create.vue'
 import ProductShow from '../components/product/Show.vue'
 import ProductEdit from '../components/product/Edit.vue'
 
+import SkuIndex from '../components/sku/Index.vue'
+import SkuCreate from '../components/sku/Create.vue'
+import SkuShow from '../components/sku/Show.vue'
+import SkuEdit from '../components/sku/Edit.vue'
+
 const router = createRouter({
     history: createWebHistory(import.meta.env.BASE_URL),
     routes: [
@@ -31,6 +36,28 @@ const router = createRouter({
             path: '/',
             name: 'home',
             component: () => import('../views/AboutView.vue')
+        },
+        {
+            path: '/sku',
+            name: 'sku.index',
+            component: SkuIndex
+        },
+        {
+            path: '/sku/create',
+            name: 'sku.create',
+            component: SkuCreate
+        },
+        {
+            path: '/sku/show/:id',
+            name: 'sku.show',
+            component: SkuShow,
+            props: true
+        },
+        {
+            path: '/sku/edit/:id',
+            name: 'sku.edit',
+            component: SkuEdit,
+            props: true
         },
         {
             path: '/product',

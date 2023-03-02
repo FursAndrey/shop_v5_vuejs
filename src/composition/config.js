@@ -7,6 +7,8 @@ export default function getConfig() {
     const ALL_PROPERTY_URL = 'property/all';
     const OPTION_URL = 'options';
     const PRODUCT_URL = 'products';
+    const ALL_PRODUCT_URL = 'product/all';
+    const SKU_URL = 'skus';
 
     return {
         API_URL,
@@ -17,5 +19,7 @@ export default function getConfig() {
         ALL_PROPERTY_URL,
         OPTION_URL,
         PRODUCT_URL,
+        ALL_PRODUCT_URL,
+        SKU_URL,
     }
 }
