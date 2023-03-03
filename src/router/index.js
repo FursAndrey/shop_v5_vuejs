@@ -1,33 +1,6 @@
 import { createRouter, createWebHistory } from 'vue-router'
-import CategoryIndex from '../pages/category/Index.vue'
-import CategoryCreate from '../pages/category/Create.vue'
-import CategoryShow from '../pages/category/Show.vue'
-import CategoryEdit from '../pages/category/Edit.vue'
 
-import CurrencyIndex from '../pages/currency/Index.vue'
-import CurrencyCreate from '../pages/currency/Create.vue'
-import CurrencyShow from '../pages/currency/Show.vue'
-import CurrencyEdit from '../pages/currency/Edit.vue'
-
-import PropertyIndex from '../pages/property/Index.vue'
-import PropertyCreate from '../pages/property/Create.vue'
-import PropertyShow from '../pages/property/Show.vue'
-import PropertyEdit from '../pages/property/Edit.vue'
-
-import OptionIndex from '../pages/option/Index.vue'
-import OptionCreate from '../pages/option/Create.vue'
-import OptionShow from '../pages/option/Show.vue'
-import OptionEdit from '../pages/option/Edit.vue'
-
-import ProductIndex from '../pages/product/Index.vue'
-import ProductCreate from '../pages/product/Create.vue'
-import ProductShow from '../pages/product/Show.vue'
-import ProductEdit from '../pages/product/Edit.vue'
-
-import SkuIndex from '../pages/sku/Index.vue'
-import SkuCreate from '../pages/sku/Create.vue'
-import SkuShow from '../pages/sku/Show.vue'
-import SkuEdit from '../pages/sku/Edit.vue'
+import AboutView from '../views/AboutView.vue'
 
 const router = createRouter({
     history: createWebHistory(import.meta.env.BASE_URL),
@@ -35,147 +8,144 @@ const router = createRouter({
         {
             path: '/',
             name: 'home',
-            component: () => import('../views/AboutView.vue')
+            component: AboutView
         },
         {
             path: '/sku',
             name: 'sku.index',
-            component: SkuIndex
+            component: () => import('../pages/SkuIndex.vue'),
         },
         {
             path: '/sku/create',
             name: 'sku.create',
-            component: SkuCreate
+            component: () => import('../pages/SkuCreate.vue'),
         },
         {
             path: '/sku/show/:id',
             name: 'sku.show',
-            component: SkuShow,
+            component: () => import('../pages/SkuShow.vue'),
             props: true
         },
         {
             path: '/sku/edit/:id',
             name: 'sku.edit',
-            component: SkuEdit,
+            component: () => import('../pages/SkuEdit.vue'),
             props: true
         },
         {
             path: '/product',
             name: 'product.index',
-            component: ProductIndex
+            component: () => import('../pages/ProductIndex.vue'),
         },
         {
             path: '/product/create',
             name: 'product.create',
-            component: ProductCreate
+            component: () => import('../pages/ProductCreate.vue'),
         },
         {
             path: '/product/show/:id',
             name: 'product.show',
-            component: ProductShow,
+            component: () => import('../pages/ProductShow.vue'),
             props: true
         },
         {
             path: '/product/edit/:id',
             name: 'product.edit',
-            component: ProductEdit,
+            component: () => import('../pages/ProductEdit.vue'),
             props: true
         },
         {
             path: '/property',
             name: 'property.index',
-            component: PropertyIndex
+            component: () => import('../pages/PropertyIndex.vue'),
         },
         {
             path: '/property/create',
             name: 'property.create',
-            component: PropertyCreate
+            component: () => import('../pages/PropertyCreate.vue'),
         },
         {
             path: '/property/show/:id',
             name: 'property.show',
-            component: PropertyShow,
+            component: () => import('../pages/PropertyShow.vue'),
             props: true
         },
         {
             path: '/property/edit/:id',
             name: 'property.edit',
-            component: PropertyEdit,
+            component: () => import('../pages/PropertyEdit.vue'),
             props: true
         },
         {
             path: '/option',
             name: 'option.index',
-            component: OptionIndex
+            component: () => import('../pages/OptionIndex.vue'),
         },
         {
             path: '/option/create',
             name: 'option.create',
-            component: OptionCreate
+            component: () => import('../pages/OptionCreate.vue'),
         },
         {
             path: '/option/show/:id',
             name: 'option.show',
-            component: OptionShow,
+            component: () => import('../pages/OptionShow.vue'),
             props: true
         },
         {
             path: '/option/edit/:id',
             name: 'option.edit',
-            component: OptionEdit,
+            component: () => import('../pages/OptionEdit.vue'),
             props: true
         },
         {
             path: '/category',
             name: 'category.index',
-            component: CategoryIndex
+            component: () => import('../pages/CategoryIndex.vue'),
         },
         {
             path: '/category/create',
             name: 'category.create',
-            component: CategoryCreate
+            component: () => import('../pages/CategoryCreate.vue'),
         },
         {
             path: '/category/show/:id',
             name: 'category.show',
-            component: CategoryShow,
+            component: () => import('../pages/CategoryShow.vue'),
             props: true
         },
         {
             path: '/category/edit/:id',
             name: 'category.edit',
-            component: CategoryEdit,
+            component: () => import('../pages/CategoryEdit.vue'),
             props: true
         },
         {
             path: '/currency',
             name: 'currency.index',
-            component: CurrencyIndex
+            component: () => import('../pages/CurrencyIndex.vue'),
         },
         {
             path: '/currency/create',
             name: 'currency.create',
-            component: CurrencyCreate
+            component: () => import('../pages/CurrencyCreate.vue'),
         },
         {
             path: '/currency/show/:id',
             name: 'currency.show',
-            component: CurrencyShow,
+            component: () => import('../pages/CurrencyShow.vue'),
             props: true
         },
         {
             path: '/currency/edit/:id',
             name: 'currency.edit',
-            component: CurrencyEdit,
+            component: () => import('../pages/CurrencyEdit.vue'),
             props: true
         },
         {
             path: '/about',
             name: 'about',
-            // route level code-splitting
-            // this generates a separate chunk (About.[hash].js) for this route
-            // which is lazy-loaded when the route is visited.
-            component: () => import('../views/AboutView.vue')
+            component: AboutView
         }
     ]
 })
